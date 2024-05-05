@@ -1,4 +1,6 @@
 import React, { useState, useEffect } from 'react';
+import './addcomment.css';
+import Navbar from './navbar';
 
 const AddComment = () => {
   const [blog, setBlog] = useState(null);
@@ -26,7 +28,6 @@ const AddComment = () => {
         }
         const blogData = await blogResponse.json();
         setBlog(blogData);
-        console.log(blogData);
 
         if (!commentsResponse.ok) {
           throw new Error('Failed to fetch comments');
@@ -49,20 +50,20 @@ const AddComment = () => {
         'Authorization': token,
         'Content-Type': 'application/json'
       },
-      body: JSON.stringify({ postId, content: newComment,username:author })
+      body: JSON.stringify({ postId, content: newComment, username: author })
     })
-    .then(response => {
-      if (!response.ok) {
-        throw new Error('Failed to add comment');
-      }
-      setNewComment('');
-      return fetch(`http://localhost:4000/comments/${postId}`, {
-        headers: { 'Authorization': token }
-      });
-    })
-    .then(res => res.json())
-    .then(data => setComments(data))
-    .catch(error => console.error(error));
+      .then(response => {
+        if (!response.ok) {
+          throw new Error('Failed to add comment');
+        }
+        setNewComment('');
+        return fetch(`http://localhost:4000/comments/${postId}`, {
+          headers: { 'Authorization': token }
+        });
+      })
+      .then(res => res.json())
+      .then(data => setComments(data))
+      .catch(error => console.error(error));
   };
 
   const deleteComment = (commentId) => {
@@ -70,17 +71,22 @@ const AddComment = () => {
       method: 'DELETE',
       headers: { 'Authorization': token }
     })
-    .then(response => {
-      if (!response.ok) {
-        throw new Error('Failed to delete comment');
-      }
-      return fetch(`http://localhost:4000/comments/${postId}`, {
-        headers: { 'Authorization': token }
-      });
-    })
-    .then(res => res.json())
-    .then(data => setComments(data))
-    .catch(error => console.error(error));
+      .then(response => {
+        if (!response.ok) {
+          throw new Error('Failed to delete comment');
+        }
+        return fetch(`http://localhost:4000/comments/${postId}`, {
+          headers: { 'Authorization': token }
+        });
+      })
+      .then(res => res.json())
+      .then(data => setComments(data))
+      .catch(error => console.error(error));
+  };
+
+  const handleUpdate = (comment) => {
+    // Implement your update logic here
+    console.log('Update comment:', comment);
   };
 
   if (error) {
@@ -93,28 +99,40 @@ const AddComment = () => {
 
   return (
     <div>
+      <Navbar/>
+    <div className="add-comment-container">
       <div>
-      {blog.map(blog => (
-        <div key={blog.id}>
-          <h2>{blog.title}</h2>
-          <p>{blog.content}</p>
+        {blog.map(blog => (
+          <div key={blog.id}>
+            <h2 className="blog-title">{blog.title}</h2>
+            <p className="blog-content">{blog.content}</p>
+          </div>
+        ))}
+
+        <div className="comment-container">
+          {comments.map(comment => (
+            <div key={comment.id} className="comment">
+              <p className="comment-content">{comment.content}</p>
+              <p className="comment-author">Comment by: {comment.auth_name}</p>
+              {(author === 'pgadmin' || comment.auth_name === author) && (
+                <div>
+                  <button onClick={() => deleteComment(comment.id)}>Delete</button>
+                  <button onClick={() => handleUpdate(comment)}>Update</button>
+                </div>
+              )}
+            </div>
+          ))}
         </div>
-      ))}
-      
-      {comments.map(comment => (
-        <div key={comment.id}>
-          <p>{comment.content}</p>
-          <p>Comment by: {comment.auth_name}</p>
-          <button onClick={() => deleteComment(comment.id)}>Delete</button>
-        </div>
-      ))}
-      <input 
-        type="text" 
-        value={newComment} 
-        onChange={e => setNewComment(e.target.value)} 
-        placeholder="Add a comment" 
-      />
-      <button onClick={addComment}>Submit</button>
+
+        <input
+          type="text"
+          value={newComment}
+          onChange={e => setNewComment(e.target.value)}
+          placeholder="Add a comment"
+          className="comment-input"
+        />
+        <button onClick={addComment} className="comment-submit">Submit</button>
+      </div>
     </div>
     </div>
   );

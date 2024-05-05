@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
+import "./login.css"
 
 const Login = () => {
   const [authenticated, setAuthenticated] = useState(false);
@@ -38,26 +39,26 @@ const Login = () => {
 
   return (
     <div className="login-container">
-      <div className="login-box">
-        <h2>Login</h2>
-        <form id="loginForm" onSubmit={handleSubmit}>
-          <div className="form-group">
-            <label htmlFor="name">Username:</label>
-            <input type="text" id="name" name="name" required />
-          </div>
-          <div className="form-group">
-            <label htmlFor="password">Password:</label>
-            <input type="password" id="password" name="password" required />
-          </div>
-          <button type="submit">Login</button>
-          {error && <p>{error}</p>}
-        </form>
-        <button><Link to="/SignUp">Need an Account?</Link></button>
-        <p id="message"></p>
-      </div>
-      {/* Conditional rendering of the link based on authentication status */}
-      {authenticated && <Link to="/HomePage">Let's go!</Link>}
+    <div className="login-box">
+      <h2>Login</h2>
+      <form id="loginForm" onSubmit={handleSubmit}>
+        <div className="form-group">
+          <label htmlFor="name">Username:</label>
+          <input type="text" id="name" name="name" required />
+        </div>
+        <div className="form-group">
+          <label htmlFor="password">Password:</label>
+          <input type="password" id="password" name="password" required />
+        </div>
+        <button type="submit">Login</button>
+        {error && <p className="error-message">{error}</p>}
+      </form>
+      <button className="signup-link"><Link to="/SignUp">Need an Account?</Link></button>
+      <p id="message"></p>
     </div>
+    
+    {authenticated && <Link to="/HomePage">Let's go!</Link>}
+  </div>
   );
 };
 
