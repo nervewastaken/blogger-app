@@ -7,13 +7,15 @@ import { RouterProvider, createBrowserRouter } from "react-router-dom";
 import HomePage from './components/Home';
 import LoginPage from './components/Login';
 import SignUp from './routes/SignUp';
+import CreateBlog from './routes/CreateBlog';
 
 
 const router = createBrowserRouter([
   { path: "/", element: <App /> },
   { path: "/HomePage", element: <HomePage/> },
   { path: "/LoginPage", element: <LoginPage/>},
-  { path: "/SignUp", element:<SignUp/>}
+  { path: "/SignUp", element:<SignUp/>},
+  { path: "/CreateBlog", element:<CreateBlog/>}
   
 ]);
 

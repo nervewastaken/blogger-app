@@ -1,0 +1,20 @@
+.home-container {
+    margin-top: 30px;
+    padding: 20px;
+  }
+  
+  .blog-card-container {
+    display: flex;
+    flex-direction: column;
+    gap: 20px; /* Spacing between cards */
+  }
+  
+  .blog-card {
+    background-color: #f9f9f9;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    padding: 20px;
+    width: 210vh;
+    margin-bottom: 20px; /* Distance between cards */
+  }
+  
