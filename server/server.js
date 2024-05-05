@@ -28,6 +28,7 @@ app.post('/users', async (req, res) => {
         const hashedPassword = await bcrypt.hash(req.body.password, 10);
         // Store user credentials in the database
         await pool.query('INSERT INTO users (username, password) VALUES ($1, $2)', [req.body.name, hashedPassword]);
+        await pool.query('INSERT INTO posts (auth_name) VALUES ($1)',[req.body.name])
         
         res.status(201).send();
     } catch (err) {
@@ -45,7 +46,7 @@ app.post('/users/login', async (req, res) => {
         if (!user) {
             return res.status(404).send('User not found');
         }
-
+        console.log(req.body)
         const sus = await bcrypt.compare(req.body.password, user.password);
 
         // Compare passwords
@@ -61,6 +62,10 @@ app.post('/users/login', async (req, res) => {
         res.status(500).send();
     }
 });
+
+//update
+
+
 
 // Start the server
 app.listen(PORT, () => {
