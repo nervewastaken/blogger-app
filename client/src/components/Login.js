@@ -6,7 +6,6 @@ const Login = () => {
   const [authenticated, setAuthenticated] = useState(false);
   const [error, setError] = useState('');
 
-  // Function to handle form submission (login)
   const handleSubmit = async (e) => {
     e.preventDefault();
     const formData = new FormData(e.target);
@@ -53,7 +52,7 @@ const Login = () => {
         <button type="submit">Login</button>
         {error && <p className="error-message">{error}</p>}
       </form>
-      <button className="signup-link"><Link to="/SignUp">Need an Account?</Link></button>
+      <Link to="/SignUp"><button className="signup-link">Need an Account?</button></Link>
       <p id="message"></p>
     </div>
     

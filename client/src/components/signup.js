@@ -6,7 +6,6 @@ function Sign() {
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
 
-  // Function to handle form submission (sign up)
   const handleSubmit = async (e) => {
     e.preventDefault();
 
@@ -23,7 +22,6 @@ function Sign() {
         throw new Error('Sign up failed');
       }
 
-      // Redirect user to login page after successful sign up
       window.location.href = '/LoginPage';
     } catch (err) {
       console.error(err);
