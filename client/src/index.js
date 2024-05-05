@@ -10,6 +10,7 @@ import SignUp from './routes/SignUp';
 import CreateBlog from './routes/CreateBlog';
 import UpdateP from './routes/UpdateP';
 import Comments from './routes/Comments';
+import UpdateComment from './routes/UpdateComment';
 
 
 const router = createBrowserRouter([
@@ -19,7 +20,8 @@ const router = createBrowserRouter([
   { path: "/SignUp", element:<SignUp/>},
   { path: "/CreateBlog", element:<CreateBlog/>},
   { path: "/UpdateP", element:<UpdateP/>},
-  { path: "/Comments", element:<Comments/>}
+  { path: "/Comments", element:<Comments/>},
+  { path: "/UpdateComment", element:<UpdateComment/>}
   
 ]);
 

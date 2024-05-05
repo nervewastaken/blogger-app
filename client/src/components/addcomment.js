@@ -84,10 +84,11 @@ const AddComment = () => {
       .catch(error => console.error(error));
   };
 
-  const handleUpdate = (comment) => {
-    // Implement your update logic here
-    console.log('Update comment:', comment);
+  const handleUpdate = (commentId) => {
+    localStorage.setItem('comId', commentId);
+    window.location.href = "/UpdateComment";
   };
+  
 
   if (error) {
     return <div>{error}</div>;
@@ -117,7 +118,8 @@ const AddComment = () => {
               {(author === 'pgadmin' || comment.auth_name === author) && (
                 <div>
                   <button onClick={() => deleteComment(comment.id)}>Delete</button>
-                  <button onClick={() => handleUpdate(comment)}>Update</button>
+                  <button onClick={() => handleUpdate(comment.id)}>Update</button>
+
                 </div>
               )}
             </div>
