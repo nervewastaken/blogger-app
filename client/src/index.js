@@ -8,6 +8,8 @@ import HomePage from './components/Home';
 import LoginPage from './components/Login';
 import SignUp from './routes/SignUp';
 import CreateBlog from './routes/CreateBlog';
+import UpdateP from './routes/UpdateP';
+import Comments from './routes/Comments';
 
 
 const router = createBrowserRouter([
@@ -15,7 +17,9 @@ const router = createBrowserRouter([
   { path: "/HomePage", element: <HomePage/> },
   { path: "/LoginPage", element: <LoginPage/>},
   { path: "/SignUp", element:<SignUp/>},
-  { path: "/CreateBlog", element:<CreateBlog/>}
+  { path: "/CreateBlog", element:<CreateBlog/>},
+  { path: "/UpdateP", element:<UpdateP/>},
+  { path: "/Comments", element:<Comments/>}
   
 ]);
 
