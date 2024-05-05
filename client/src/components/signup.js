@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 
 function Sign() {
-  // State to manage form inputs
+  
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');

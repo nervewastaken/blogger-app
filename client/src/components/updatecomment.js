@@ -22,7 +22,7 @@ const Ucomment = () => {
 
       if (response.ok) {
         console.log('Comment updated successfully');
-        // Redirect or handle success as needed
+       
       } else {
         console.error('Failed to update comment');
       }

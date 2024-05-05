@@ -10,7 +10,7 @@ const UpdatePost = () => {
     const token = localStorage.getItem('token');
     const postId = localStorage.getItem('postId');
 
-    // Fetch existing blog data from the server
+   
     const fetchBlogData = async () => {
       try {
         const response = await fetch(`http://localhost:4000/blogs/${postId}`, {
@@ -21,7 +21,7 @@ const UpdatePost = () => {
 
         if (response.ok) {
           const data = await response.json();
-          // Set the state with the fetched data
+        
           setUpdatedTitle(data.title);
           setUpdatedContent(data.content);
         } else {
@@ -33,7 +33,7 @@ const UpdatePost = () => {
     };
 
     fetchBlogData();
-  }, []); // Empty dependency array to run effect only once on component mount
+  }, []); 
 
   // Function to handle form submission
   const handleSubmit = async (e) => {
