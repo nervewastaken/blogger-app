@@ -9,6 +9,16 @@ function Sign() {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
+    if (username.length < 4) {
+      setError('Username must be at least 4 characters long');
+      return;
+    }
+
+    if (password.length < 8) {
+      setError('Password must be at least 8 characters long');
+      return;
+    }
+
     try {
       const response = await fetch('http://localhost:4000/users', {
         method: 'POST',

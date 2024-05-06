@@ -5,15 +5,15 @@ import './updatep.css';
 const UpdatePost = () => {
   const [updatedTitle, setUpdatedTitle] = useState('');
   const [updatedContent, setUpdatedContent] = useState('');
+  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
     const token = localStorage.getItem('token');
-    const postId = localStorage.getItem('postId');
+    const updateBlogId = localStorage.getItem('updateBlogId');
 
-   
     const fetchBlogData = async () => {
       try {
-        const response = await fetch(`http://localhost:4000/blogs/${postId}`, {
+        const response = await fetch(`http://localhost:4000/blogs/${updateBlogId}`, {
           headers: {
             'Authorization': token
           }
@@ -21,7 +21,7 @@ const UpdatePost = () => {
 
         if (response.ok) {
           const data = await response.json();
-        
+
           setUpdatedTitle(data.title);
           setUpdatedContent(data.content);
         } else {
@@ -29,19 +29,24 @@ const UpdatePost = () => {
         }
       } catch (error) {
         console.error('Error fetching blog data:', error);
+      } finally {
+        setIsLoading(false);
       }
     };
 
     fetchBlogData();
-  }, []); 
+  }, []);
 
-  // Function to handle form submission
+  if (isLoading) {
+    return <div>Loading...</div>;
+  }
+
   const handleSubmit = async (e) => {
     const token = localStorage.getItem('token');
     e.preventDefault();
     try {
-      const postId = localStorage.getItem('postId');
-      const response = await fetch(`http://localhost:4000/blogs/${postId}`, {
+      const updateBlogId = localStorage.getItem('updateBlogId');
+      const response = await fetch(`http://localhost:4000/blogs/${updateBlogId}`, {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json',
@@ -72,7 +77,7 @@ const UpdatePost = () => {
             <input
               type="text"
               id="updatedTitle"
-              value={updatedTitle}
+              value={updatedTitle} // Set value to updatedTitle state
               onChange={(e) => setUpdatedTitle(e.target.value)}
               required
               className="input-field"
@@ -82,7 +87,7 @@ const UpdatePost = () => {
             <label htmlFor="updatedContent">Updated Content:</label>
             <textarea
               id="updatedContent"
-              value={updatedContent}
+              value={updatedContent} // Set value to updatedContent state
               onChange={(e) => setUpdatedContent(e.target.value)}
               required
               className="textarea-field"

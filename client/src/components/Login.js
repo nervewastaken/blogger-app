@@ -3,7 +3,6 @@ import { Link } from 'react-router-dom';
 import "./login.css"
 
 const Login = () => {
-  const [authenticated, setAuthenticated] = useState(false);
   const [error, setError] = useState('');
 
   const handleSubmit = async (e) => {
@@ -29,7 +28,7 @@ const Login = () => {
       localStorage.setItem('username', name); // Save username in local storage
       localStorage.setItem('token', data.token);
       
-      setAuthenticated(true);
+      window.location.href = "/HomePage"
     } catch (err) {
       console.error(err);
       setError('Invalid username or password');
@@ -56,7 +55,6 @@ const Login = () => {
       <p id="message"></p>
     </div>
     
-    {authenticated && <Link to="/HomePage">Let's go!</Link>}
   </div>
   );
 };
