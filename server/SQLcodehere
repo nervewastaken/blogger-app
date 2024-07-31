@@ -1,0 +1,25 @@
+-- Create Users Table
+CREATE TABLE users (
+    id SERIAL PRIMARY KEY,
+    username VARCHAR(255) NOT NULL UNIQUE,
+    password VARCHAR(255) NOT NULL
+);
+
+-- Create Posts Table
+CREATE TABLE posts (
+    srno SERIAL PRIMARY KEY,
+    title VARCHAR(255) NOT NULL,
+    content TEXT NOT NULL,
+    auth_name VARCHAR(255) NOT NULL,
+    FOREIGN KEY (auth_name) REFERENCES users(username) ON DELETE CASCADE
+);
+
+-- Create Comments Table
+CREATE TABLE comments (
+    id SERIAL PRIMARY KEY,
+    post_id INT NOT NULL,
+    content TEXT NOT NULL,
+    auth_name VARCHAR(255) NOT NULL,
+    FOREIGN KEY (post_id) REFERENCES posts(srno) ON DELETE CASCADE,
+    FOREIGN KEY (auth_name) REFERENCES users(username) ON DELETE CASCADE
+);
